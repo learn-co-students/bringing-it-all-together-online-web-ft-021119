@@ -93,22 +93,20 @@ class Dog
       WHERE name = ? AND breed = ?;
     SQL
     # binding.pry
-
     dog = DB[:conn].execute(sql, data[:name], data[:breed])
-    dog.empty? ? Dog.create(data) : dog[0][0]
-
+    # binding.pry
+    !dog.empty? ? dog = Dog.new_from_db(dog[0]) : dog = Dog.create(data)
+    dog
   end
 
-  # def self.find_or_create_by(data)
-  #   new_dog = Dog.new(data)
-  #   self.all.map.with_index do |dog, index|
-  #     if dog.name == new_dog.name && dog.breed == new_dog.breed
-  #       all[index]
-  #     else
-  #       new_dog.save
-  #     end
-  #   end
-  # end
+  def self.find_or_create_by(data)
+    sql = <<-SQL
+      SELECT * FROM dogs
+      WHERE name = ? AND breed = ?;
+    SQL
+    dog = DB[:conn].execute(sql, data[:name], data[:breed])
+    dog.empty? ? Dog.create(data) : Dog.new_from_db(dog[0])
+  end
 
 
 end
