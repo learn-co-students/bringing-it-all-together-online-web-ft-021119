@@ -63,7 +63,7 @@ attr_reader :id
             def self.new_from_db(dog)
                 #binding.pry
                 new_dog = Dog.new(:id => dog[0], :name => dog[1], :breed => dog[2])
-               # binding.pry
+                binding.pry
               
              end
 
