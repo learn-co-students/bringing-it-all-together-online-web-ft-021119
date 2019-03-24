@@ -82,13 +82,14 @@ class Dog
   def self.find_or_create_by(name:, breed:)
     args = {name: name,breed: breed}
     dog = DB[:conn].execute("SELECT * FROM dogs WHERE name = ? AND breed = ?", name, breed)
-    binding.pry
+    # binding.pry
     if !dog.empty? #Create Dog Object, but do not push to database (which would create a duplicate!).
       dog_id = dog[0]
       dog = Dog.new(args)
     else
       dog = self.create(args) # Dog is neither in the db nor is an object, so create a row in the database too!
     end
+    binding.pry
     dog
   end
 end
