@@ -50,10 +50,10 @@ class Dog
       WHERE name = ? AND breed = ? 
     SQL
     dog = DB[:conn].execute(sql, name, breed).first  #[1, "teddy", "cockapoo"]
-    if dog #dog is not empty, so find 
+    if dog #dog is not empty, so find
       new_dog = self.new_from_db(dog)
     else #create new
-     new_dog = self.create({:name => name, :breed => breed})
+     new_dog = self.create(name: name, breed: breed)
     end
     new_dog
   end 
